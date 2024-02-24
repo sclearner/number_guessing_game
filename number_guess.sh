@@ -17,12 +17,7 @@ then
 else
   echo $($PSQL "SELECT games_played, best_game FROM users WHERE user_id=$USER_ID") | while read games_played bar best_game
   do
-    if [[ $best_game > 0 ]]
-    then
-      echo Welcome back, $USERNAME! You have played $games_played games, and your best game took $best_game guesses.
-    else
-      echo "Welcome, $USERNAME! It looks like this is your first time here."
-    fi
+    echo Welcome back, $USERNAME! You have played $games_played games, and your best game took $best_game guesses.
   done
 fi
 # THE GAME
