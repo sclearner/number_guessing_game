@@ -12,7 +12,10 @@ then
   if [[ $CREATE_USER_RESULT == "INSERT 0 1" ]]
   then
     USER_ID=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
-    echo "Welcome, $USERNAME! It looks like this is your first time here."
+    echo $($PSQL "SELECT games_played, best_game FROM users WHERE user_id=$USER_ID") | while read games_played bar best_game
+    do
+      echo "Welcome, $USERNAME! It looks like this is your first time here."
+    done
   fi
 else
   echo $($PSQL "SELECT games_played, best_game FROM users WHERE user_id=$USER_ID") | while read games_played bar best_game
@@ -27,6 +30,7 @@ echo "Guess the secret number between 1 and 1000:"
 while [[ $ANSWER != $FINAL_ANSWER ]]
 do
   (( TURN++ ))
+  read ANSWER
   if [[ ! $ANSWER =~ ^[0-9]+$ ]]
   then
     echo "That is not an integer, guess again:"
@@ -39,8 +43,8 @@ do
 done
 echo "You guessed it in $TURN tries. The secret number was $FINAL_ANSWER. Nice job!"
 # Update data
-( $PSQL "UPDATE users SET game_played=game_played+1 WHERE user_id=$USER_ID" )
-if [[ $best_game == 0 | $best_game > $TURN ]]
+( $PSQL "UPDATE users SET games_played=games_played+1 WHERE user_id=$USER_ID" )
+if [[ $best_game == 0 || $best_game > $TURN ]]
 then
   ( $PSQL "UPDATE users SET best_game=$TURN WHERE user_id=$USER_ID" )
 fi
