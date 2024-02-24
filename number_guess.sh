@@ -25,3 +25,27 @@ else
     fi
   done
 fi
+# THE GAME
+FINAL_ANSWER=$(( RANDOM % 1000 + 1 ))
+TURN=0
+echo "Guess the secret number between 1 and 1000:"
+while [[ $ANSWER != $FINAL_ANSWER ]]
+do
+  (( TURN++ ))
+  if [[ ! $ANSWER =~ ^[0-9]+$ ]]
+  then
+    echo "That is not an integer, guess again:"
+  elif [[ $ANSWER < $FINAL_ANSWER ]]
+  then
+    echo "It's higher than that, guess again:"
+  else
+    echo "It's lower than that, guess again:"
+  fi
+done
+echo "You guessed it in $TURN tries. The secret number was $FINAL_ANSWER. Nice job!"
+# Update data
+( $PSQL "UPDATE users SET game_played=game_played+1 WHERE user_id=$USER_ID" )
+if [[ $best_game == 0 | $best_game > $TURN ]]
+then
+  ( $PSQL "UPDATE users SET best_game=$TURN WHERE user_id=$USER_ID" )
+fi
