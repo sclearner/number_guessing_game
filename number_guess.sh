@@ -37,7 +37,8 @@ do
   elif [[ $ANSWER < $FINAL_ANSWER ]]
   then
     echo "It's higher than that, guess again:"
-  else
+  elif [[ $ANSWER > $FINAL_ANSWER ]]
+  then
     echo "It's lower than that, guess again:"
   fi
 done
