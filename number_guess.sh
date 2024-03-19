@@ -42,10 +42,10 @@ do
     echo "It's lower than that, guess again:"
   fi
 done
-echo "You guessed it in $TURN tries. The secret number was $FINAL_ANSWER. Nice job!"
 # Update data
-( $PSQL "UPDATE users SET games_played=games_played+1 WHERE user_id=$USER_ID" )
+UPDATE_RESULT=$( $PSQL "UPDATE users SET games_played=games_played+1 WHERE user_id=$USER_ID" )
 if [[ $best_game == 0 || $best_game > $TURN ]]
 then
-  ( $PSQL "UPDATE users SET best_game=$TURN WHERE user_id=$USER_ID" )
+  UPDATE_RESULT2=$( $PSQL "UPDATE users SET best_game=$TURN WHERE user_id=$USER_ID" )
 fi
+echo "You guessed it in $TURN tries. The secret number was $FINAL_ANSWER. Nice job!"
