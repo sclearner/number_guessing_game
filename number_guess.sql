@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.17 (Ubuntu 12.17-1.pgdg22.04+1)
--- Dumped by pg_dump version 12.17 (Ubuntu 12.17-1.pgdg22.04+1)
+-- Dumped from database version 12.17 (Ubuntu 12.17-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.17 (Ubuntu 12.17-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -51,7 +51,7 @@ CREATE TABLE public.users (
     user_id integer NOT NULL,
     username character varying(22) NOT NULL,
     games_played integer DEFAULT 0 NOT NULL,
-    best_game integer DEFAULT 0
+    best_game integer
 );
 
 
@@ -90,20 +90,24 @@ ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.u
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.users VALUES (16, 'user_1708780366023', 2, 0);
-INSERT INTO public.users VALUES (15, 'user_1708780366024', 5, 0);
-INSERT INTO public.users VALUES (17, 'Sam', 1, 0);
-INSERT INTO public.users VALUES (18, 'user_1708780539869', 5, 0);
-INSERT INTO public.users VALUES (19, 'user_1708780539868', 2, 3);
-INSERT INTO public.users VALUES (21, 'user_1708781076004', 2, 0);
-INSERT INTO public.users VALUES (20, 'user_1708781076005', 5, 0);
+INSERT INTO public.users VALUES (16, 'user_1708780366023', 2, NULL);
+INSERT INTO public.users VALUES (15, 'user_1708780366024', 5, NULL);
+INSERT INTO public.users VALUES (18, 'user_1708780539869', 5, NULL);
+INSERT INTO public.users VALUES (19, 'user_1708780539868', 2, NULL);
+INSERT INTO public.users VALUES (21, 'user_1708781076004', 2, NULL);
+INSERT INTO public.users VALUES (20, 'user_1708781076005', 5, NULL);
+INSERT INTO public.users VALUES (23, 'user_1708934146661', 2, NULL);
+INSERT INTO public.users VALUES (22, 'user_1708934146662', 5, NULL);
+INSERT INTO public.users VALUES (25, 'user_1708934214933', 2, NULL);
+INSERT INTO public.users VALUES (24, 'user_1708934214934', 5, NULL);
+INSERT INTO public.users VALUES (17, 'Sam', 3, 2);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: freecodecamp
 --
 
-SELECT pg_catalog.setval('public.users_user_id_seq', 21, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 25, true);
 
 
 --

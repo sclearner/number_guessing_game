@@ -20,7 +20,12 @@ then
 else
   echo $($PSQL "SELECT games_played, best_game FROM users WHERE user_id=$USER_ID") | while read games_played bar best_game
   do
-    echo Welcome back, $USERNAME! You have played $games_played games, and your best game took $best_game guesses.
+    if [[ $best_game ]]
+    then
+    echo "Welcome back, $USERNAME! You have played $games_played games, and your best game took $best_game guesses."
+    else
+    echo "Welcome, $USERNAME! It looks like this is your first time here."
+    fi
   done
 fi
 # THE GAME
@@ -44,7 +49,7 @@ do
 done
 # Update data
 UPDATE_RESULT=$( $PSQL "UPDATE users SET games_played=games_played+1 WHERE user_id=$USER_ID" )
-if [[ $best_game == 0 || $best_game > $TURN ]]
+if [[ -z $best_game || $best_game > $TURN ]]
 then
   UPDATE_RESULT2=$( $PSQL "UPDATE users SET best_game=$TURN WHERE user_id=$USER_ID" )
 fi
